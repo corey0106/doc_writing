@@ -9,7 +9,10 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/auth', { email });
+      const url = process.env.NEXT_PUBLIC_BACKEND_URL
+        ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : "http://localhost:5000";
+      const res = await axios.post(url + '/auth', { email });
       if (res.data.success) {
         localStorage.setItem('email', email);
         router.push('/dashboard');

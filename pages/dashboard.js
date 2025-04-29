@@ -19,7 +19,10 @@ export default function Dashboard() {
     formData.append('document', file);
 
     try {
-      const res = await axios.post('http://localhost:5000/upload', formData, {
+        const url = process.env.NEXT_PUBLIC_BACKEND_URL
+        ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : "http://localhost:5000";
+      const res = await axios.post(url + '/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 

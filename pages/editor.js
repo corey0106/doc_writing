@@ -32,7 +32,10 @@ export default function EditorPage() {
     setIsLoading(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/edit', {
+      const url = process.env.NEXT_PUBLIC_BACKEND_URL
+        ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : "http://localhost:5000"; 
+      const res = await axios.post(url + '/edit', {
         selectedSection,
         instructions,
         user_id: localStorage.getItem('email'),
@@ -60,8 +63,11 @@ export default function EditorPage() {
   };
 
   const handleExport = async () => {   
-    try {   
-      const res = await axios.post('http://localhost:5000/export', {
+    try {  
+        const url = process.env.NEXT_PUBLIC_BACKEND_URL
+        ? process.env.NEXT_PUBLIC_BACKEND_URL
+        : "http://localhost:5000"; 
+      const res = await axios.post(url + '/export', {
         content: documentText, 
         filename: 'revised_document.txt',
       }); 
